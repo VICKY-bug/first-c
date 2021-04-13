@@ -1,0 +1,18 @@
+#include<stdio.h>
+int main()
+{
+	int a[]={1,3,5,7,9};
+	int target=6,i,j;
+	for(i=0;i<1;i++)
+    for(j=1;j<5;j++)
+		{
+			
+			if(target==a[i]+a[j])
+			{
+				printf("answer is:%d,%d\n",i,j);
+				break;
+			}
+		}
+	
+	return 0;
+}
