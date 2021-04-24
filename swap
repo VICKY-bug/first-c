@@ -1,0 +1,16 @@
+#include<stdio.h>
+void Swap(int*pa,int*pb)
+{
+	int t=0;
+	t=*pa;
+	*pa=*pb;
+	*pb=t;
+}
+int main()
+{
+	int a=10;
+	int b=20;
+	Swap(&a,&b);
+	printf("a=%d,b=%d",a,b);
+	return 0;
+}
