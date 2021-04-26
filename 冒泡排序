@@ -1,0 +1,15 @@
+#define N 6
+#include<stdio.h> 
+main()
+{int i , j , t , a[N];
+printf("请输入%d个整数:\n",N);
+for(i = 0; i < N; i++)//一重for循环输入一维数组数据
+scanf("%d", &a[i]);
+printf("\n");//输出回车换行
+for(j=1;j<=N-1;j++)/*控制比较的趟数*/
+for(i =0; i< N-j; i++) /*第j轮比较中N-j次两两比较*/
+    if(a[i]> a[i +1]) /*相邻两数比较如果后面的数更小，则小数冒泡，前移*/
+        {t = a[i];a[i] = a[i + 1]; a[i +1] = t;}//互换操作
+          printf("排序之后:\n");//输出提示和回车换行
+        for(i = 0 ; i < N; i++)//一重for循环输出一维数组数据
+		printf("%3d",a[i]); } 
