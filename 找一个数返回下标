@@ -1,0 +1,25 @@
+#include<stdio.h>
+main()
+{
+	int a[5]={3,5,8,9,14};
+	int x,top,bot,mid,find;
+	scanf("%d",&x);
+	top=0;find=0;bot=4;
+	do
+	{
+		mid=(top+bot)/2;
+		if(x==a[mid])
+		{
+			printf("found:%d,it is[%d].\n",x,mid);
+			find=1;
+			break;
+		}
+		else if(x<a[mid])
+		bot=mid-1;
+		else
+		top=mid+1;
+	}
+	while(top<=bot);
+	if(find=0)
+	printf("%dnot found.\n",x);
+}
