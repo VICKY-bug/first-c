@@ -1,0 +1,16 @@
+#include<stdio.h>
+#include<string.h>
+main()
+{
+	char username[7],password[7];
+	gets(username);
+	if(strcmp(username,"vicky")==0)
+	printf("bingo");
+	else
+	printf("error");
+	gets(password);
+	if(strcmp(password,"123456")==0)
+	printf("bingo");
+	else
+	printf("error");
+}
