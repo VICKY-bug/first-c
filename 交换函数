@@ -1,0 +1,15 @@
+#include<stdio.h>
+void swap(int*pa,int*pb)
+{
+	int t=0;
+	t=*pa;
+	*pa=*pb;
+	*pb=t;
+	
+}
+main()
+{
+	int a=1,b=2;
+	swap(&a,&b);
+	printf("a=%d,b=%d",a,b);
+}
