@@ -1,0 +1,15 @@
+#include<stdio.h>
+long zang(long a,long b)
+{
+	if(b==0)
+	return 1;
+	else
+	return a*zang(a,b-1);
+ } 
+main()
+{
+	long i,n,x;
+	scanf("%d%d",&n,&x);
+	i=zang(n,x);
+	printf("%d",i);
+}
