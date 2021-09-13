@@ -1,0 +1,225 @@
+#include<stdio.h>
+#include<conio.h>
+#include<windows.h>
+#include<string.h>
+#define MAXSIZE 100
+
+//定义学生结构体
+typedef struct{
+    char num[10];
+	char name[20];
+	int score;
+}STUDENT;
+//定义顺序表
+typedef struct{
+	int last;
+    STUDENT data[MAXSIZE];
+}SeqList;
+
+void displayList(SeqList *L);
+void displayOne(SeqList *L,int i);
+
+//创建成绩链表，学生数据包括学生的学号、姓名和成绩。
+SeqList createSeqList(){
+    SeqList list;
+	STUDENT s;
+	char num[10];
+	list.last=-1;
+	printf("请输入学生成绩，当学号为#时结束\n\n");
+	while(1){
+		printf("请输入学号:");
+		scanf("%s",num);
+	    if(num[0]=='#')
+			break;
+	     strcpy(s.num,num);
+		 printf("请输入姓名:\n");
+         scanf("%s",s.name);
+		 printf("请输入成绩:");
+         scanf("%d",&s.score);
+		
+         list.last=list.last+1;
+		 list.data[list.last]=s;
+	}
+	return list;
+}
+//在指定学号学生前插入学生成绩数据。
+int insertSeqList(SeqList *L,int i){
+	int j,k,score;
+	STUDENT stu;
+	k=L->last;
+	if(L->last==MAXSIZE-1){
+		printf("\n已满，不能插入\n");
+		return 0;
+	}
+	if(i<1 || i>=L->last+2){
+		printf("\n插入位置有误\n");
+		return 0;
+	}
+	for(j=k;j>=i-1;j--){
+		L->data[j+1]=L->data[j];
+	}
+	printf("请输入学号:");
+	scanf("%s",stu.num);
+	printf("请输入姓名:");
+    scanf("%s",stu.name);
+    printf("请输入成绩:");
+    scanf("%d",&stu.score);
+		
+    L->last=L->last+1;
+	L->data[i-1]=stu;
+   return 1;
+}
+//删除指定学号的学生数据。
+int deleteSeqList(SeqList *L,int i){
+    int j;
+	if(i<1 || i>L->last+1){
+	    printf("不存在第%d个元素",i);
+		return 0;
+	}
+	for(j=i;j<=L->last;j++)
+		 L->data[j-1]=L->data[j];
+	L->last=L->last-1;
+	return 1;
+}
+//计算学生的总数。
+int lengthSeqList(SeqList *L){
+    return L->last+1;
+}
+//按学号查找学生。
+void LocateNum(SeqList *L,char num_find[]){
+	int i;
+	for(i=0;i<=L->last;i++)
+		if(strcmp(L->data[i].num,num_find)==0){
+		       displayOne(L,i);
+			   break;
+		}
+}
+//按姓名查找学生。
+void LocateName(SeqList *L,char name_find[]){
+	int i;
+	for(i=0;i<=L->last;i++)
+		if(strcmp(L->data[i].name,name_find)==0){
+		       displayOne(L,i);
+			   break;
+		}
+}
+//显示所有学生的成绩。
+void displayList(SeqList *L){
+	int i=0,n;
+	n=L->last;
+    system("cls");
+	printf("\n\n学号\t\t姓名\t\t成绩");
+	while(i<=n){
+		printf("\n%-6s\t\t",L->data[i].num);
+		printf("%-12s\t",L->data[i].name);
+		printf("%-4d",L->data[i].score);
+		i++;	
+	}
+}
+//显示某个学生信息
+void displayOne(SeqList *L,int i){
+    printf("\n\n学号\t\t姓名\t\t成绩");
+	printf("\n%-6s\t\t",L->data[i].num);
+	printf("%-12s\t",L->data[i].name);
+	printf("%-4d",L->data[i].score);
+}
+//把学生成绩按从高到低的顺序排序。
+void sortSeqList(SeqList *L){
+SeqList *L1=( SeqList *)malloc(sizeof(SeqList));
+STUDENT temp;
+int len,i,j;
+len=L->last;
+for(i=0;i<=len;i++){
+	L1->data[i]=L->data[i];
+}
+L1->last=L->last;
+for(i=1;i<=len;i++){
+   if(L1->data[i].score>L1->data[i-1].score){
+        temp.score=L1->data[i].score;
+        strcpy(temp.num,L1->data[i].num);
+        strcpy(temp.name,L1->data[i].name);
+	    L1->data[i]=L1->data[i-1];
+        for(j=i-2;(temp.score>L1->data[j].score)&&(j>=0);j--){
+            L1->data[j+1]=L1->data[j];
+}
+L1->data[j+1].score=temp.score;
+strcpy(L1->data[j+1].num,temp.num);
+strcpy(L1->data[j+1].name,temp.name);
+}
+}
+}
+int main(int argc, char *argv[])
+{
+   SeqList L;
+   char temp[20],choose;
+   int i,fz=1,res;
+   printf("\n\n\n\n");
+   printf("\t\t********************************\n");
+   printf("\t\t********************************\n");
+   printf("\t\t******学生成绩管理系统**********\n");
+   printf("\t\t********************************\n");
+   printf("\t\t********************************\n");
+   getch();
+   system("cls");
+   while(fz){
+        printf("\n\n");
+        printf("\t\t1---创建链表\n");
+		printf("\t\t2---插入新同学信息\n");
+        printf("\t\t3---删除\n");
+		printf("\t\t4---总人数\n");
+		printf("\t\t5---按学号查找\n");
+		printf("\t\t6---按姓名查找\n");
+		printf("\t\t7---成绩排序\n");
+		printf("\t\t8---显示所有学生信息\n");
+		printf("\t\t9---退出\n");
+        choose=getch();
+		system("cls");
+        switch(choose){
+		      case '1':L=createSeqList();				 
+				       displayList(&L);
+					   getch();
+					   system("cls");
+				       break;
+              case '2':
+				      printf("请输入插入位置：");
+					  scanf("%d",&i);
+				      res=insertSeqList(&L,i);
+					  if(res==1)  displayList(&L);
+				      break;
+		      case '3':   
+				      printf("请输入删除位置：");
+					  scanf("%d",&i);
+				      res=deleteSeqList(&L,i);
+					  if(res==1)  displayList(&L);
+				      break;
+			  case '4':
+				      printf("学生总数为:%d\n",lengthSeqList(&L));
+				       break;
+			  case '5': 
+				      printf("请输入查找学生的学号：");
+					  scanf("%s",temp);
+					  printf("\n查找到的学生信息如下\n");
+				      LocateNum(&L,temp);	
+				      break;
+			  case '6':				      
+				      printf("请输入查找学生的姓名：");
+					  scanf("%s",temp);
+					  printf("\n查找到的学生信息如下\n");
+				      LocateNum(&L,temp);	
+				      break;
+			  case '7': 
+				     sortSeqList(&L);
+displayList(&L);
+				     break;
+			  case '8': 
+				     displayList(&L);
+				     break;
+			  case '9':
+				  printf("结束！\n");
+				  exit(0);
+				  break;
+		}
+   }  
+  system("PAUSE");	
+  return 0;
+}
